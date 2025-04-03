@@ -1,0 +1,461 @@
+Controls
+"Capital One machine roles And human roles must not have access to AWS secrets manager to update or modify secrets except COS gatekeeper APIs machine roles excluding AWS managed secrets"
+AWS IAM Identity Center must not be used to manage any COF AWS accounts, IAM rolls, policies or resources in COF AWS organizations.. (Only used to access aws managed applications)
+RAM must not share resources outside of COF AWS Orgs and accounts and no RAM invitation from non-COF AWS Orgs and Account should be accepted  
+All Amazon FSx for Windows file systems must be joined with AWS managed Microsoft AD.
+Workspaces directories must only be configured with Capital One Active Directory via AD connectors.
+All ALBs must have access logging enabled.
+All ELBs must have access logging enabled for restricted perimeter accounts.
+All classic load balancer (CLB/ELB) must have access logging enabled.
+FSx must enable file access auditing and send logs to Cloudwatch or Kinesis Data Firehose
+All APIs using AWS API Gateway must enable Execution logging
+All AWS Network Firewalls must have Flow and Alert logs enabled
+All MSK broker authentication details must be logged for all PCI environments 
+All ALB resources must not be publicly accessible
+All Lambda functions must not be publicly accessible.
+All ECR must not be publicly accessible.
+All SQS queues must not be publicly accessible.
+All SNS topics must not be publicly accessible.
+All EventBridge events received by a Capital One account must be originated by an approved target.
+All EventBridge events sent from a Capital One account must be delivered to an approved target excluding AWS managed events.
+All SageMaker notebooks must not have direct Internet access 
+All ECS services must have been auto-assigned of public IP disabled.
+All EKS API Server must not be internet facing
+Block IAM users from being used outside of Capital One's network.
+Block IAM users from being used outside of Capital One's network.
+All CloudWatch cross-account subscription filters must be restricted to deliver a CloudWatch log events to Capital One destinations only.
+All Kinesis Video Streams must be used in conjunction with AWS Connect
+All Key Management Service KMS keys must not be publicly accessible  
+ECR access to presigned URL is only allowed for Machine roles only
+All CloudHSM clusters must be deployed on private subnets
+All OpenSearch domains must enable fine-grained access control 
+All NLB resources must not be publicly accessible except in public subnet 
+System manager SSM documents owned by Capital One must not be shared with non Capital One AWS accounts 
+AI services must be opted out of sharing data with AWS 
+Human roles are not allowed to assume machine roles 
+Machine rolls are not allowed to assume human roles 
+Where custom policy is supported, all VPC Endpoint policies must only allow Capital One owned AWS environments or AWS accounts
+EC2 instances must not use Custodian machine roles if the instance is not authorized to do so  
+Lambda functions must not use custodian machine roles if the function is not authorized to do so 
+AWS human roles are restricted from being used outside of the Capital One network
+AWS human roles are restricted from being used outside of the Capital One network 
+All MQ Message brokers must not be publicly accessible 
+Workspaces must disable cache credentials support on clients 
+All DMS replication instances for DMS must not have public IP address enabled
+All Capital One VPC peering requester and acceptor must not be from a non Capital One VPC
+All Glue connections must not be publicly accessible   
+EBS volumes with data that cannot be recreated by other means must have backups protected from deletion by application teams 
+All EFS file systems must be backed up by AWS backup to ensure capital one user separation of duties 
+Redshift clusters must have backups protected from deletion by application teams 
+All DynamoDB tables must be backed up by AWS backup to ensure capital one user separation of duties
+All RDS resources must be backed up by AWS backup to ensure capital one user separation of duties
+All RDS resources must be backed up by AWS backup to ensure capital one user separation of duties 
+Prevent AWS managed policy attachment to a Machine Role
+Secrets manager secret resource policy statements may only grant access to Capital One AWS accounts, excluding AWS managed secrets.
+Machine roles must not use resource wildcards except in approved cases.
+Call Lambda layers must not be accessible outside of the Organization
+All EC2 instances instantiated from Third party amis are to be rehydrated/rebuilt no less than every 90 days from the instance instantiation date  
+Manually provision high risk Machine Roles
+All EC2 instances shall only be instantiated from approved COF or a third party amis provided by the Machine Shop
+All S3 storage lens metrics export destination bucket must be owned by Capital One  
+S3 public access block configuration must be enabled at the account level 
+All RDS proxy end points must reside in a Capital One Owned VPC
+All MQ Brokers must use LDAP for authentication and authorization   
+The Lambda function URLS feature must not be enabled
+The Lambda function URLS feature must not be enabled 
+All workspaces web (Secure Browser) portal must not be publicly accessible and run on a private subnet 
+AWS MemoryDB for Redis must not be configured with Open-Access ACL
+API Gateway API's Authentication type must be IAM or Lambda Authorizer
+"Excluding Cyber IAM Tools and Capital One Software, AWS API Gateway Resource policy must limit requests to those originating from DevExchange (Inter) OR an application in the same Gen3 account. (Intra)"
+OpenSearch Ingestion Pipelines must not be publicly accessible.
+Amazon DynamoDB Resource-Based policy must not grant access to non Capital One principals.
+"All ElastiCache Redis users must require authentication mode ""IAM"" excluding 'default' user."
+AWS CloudHSM backup must not have a resource based policy attached
+Trust relationships must only be configured with Capital One-owned domains
+RDS snapshots must not be shared outside of the organization.
+RDS snapshots must not be shared outside of the organization.
+All IAM Roles must block the ability to disable CloudTrail logging
+All ELB resources must not be publicly accessible except in public subnets.
+All EMR resources must not be publicly accessible.
+SNS endpoints subscriptions must be approved values.
+ALL SNS subscribers must be Capital One entities.
+EBS snapshot sharing outside Capital One accounts is restricted.
+EC2 AMI sharing outside of Capital One accounts is restricted.
+EC2 AMI sharing outside of Capital One accounts is restricted.
+All S3 buckets must have the Public Access Block Configuration enabled.
+Sharing or consuming Service Catalog portfolios and products between a non-Capital One account must not be allowed.
+ALL Lambda@Edge resources are only able to access CloudFront and CloudWatch logs.
+All Lambda@Edge resources are only able to access CloudFront and CloudWatch logs.
+All ECS resources that do not belong to Cloud Custodian ASV must be restricted from using the Cloud Custodian reserved roles.
+All Glue Data Catalog must not be shared with non-Capital One accounts.
+AWS Security Hub administrator for Capital One's AWS accounts must belong to Capital One.
+All Lambda functions in all capital one elvironments must be attached to a VPC.
+All S3 buckets must not be replicated to accounts not managed by Capital One.
+OpenSearch must use VPC endpoints.
+AWS Security Groups and Subnets must be tagged with Network Location.
+AWS Batch jobs must have authorized logging enabled as noted in Control Design.
+Access to modify subscription or protection configuration for Shield Advanced must be restricted.
+Machine Role must only use approved services or APIs approved through the API review process.
+"Limit the number of AWS Services listed in the Principal element of a Role's Trust Policy to one, except in approved cases"
+All AWS IAM machine roles that have not been used in the last 200 days are quarantined within 10 business days of identification.
+Restrict VPC peering connections based on allowed PCI VPC peering patterns.
+All Users and Machine Roles that are referenced in S3 bucket policy must have accessed the S3 bucket within 200 days
+"Only AWS Managed Microsoft AD, AD Connector, and SharedMicrosoftAD will be used as a directory type."
+Enforce cross-account access patterns as defined by architectural guidance.
+All APIs using AWS API Gateway must enable Access logging.
+"All RDS resources must forward audit, error, and general logs to CloudWatch Logs."
+"Redshift must have at minimum connection and user logs enabled, and sent to S3."
+All CloudFront distributions must have the logging feature enabled.
+All ECS task definitions must configure an enterprise standard logging agent.
+All Domain Controller Security event logs for AWS Managed AD must be forwarded to Amazon CloudWatch logs.
+All Kinesis Firehose stream destinations must be of a supported type.
+All OpenSearch domains must have slow logs and application logs sent to CloudWatch.
+All Network Manager global networks must be onboarded to CloudWatch log insights.
+All AppSync APIs must enable Request-level logging via CloudWatch Logs
+Amazon Bedrock resources must enable model invocation logging and send to S3
+Session activity logging using CloudWatch for AWS Systems Manager: Session Manager must be enabled.
+All AWS WAFS must enable rule group logging and traffic logging to a centralized location.
+Task and Execution History must be logged for AWS Simple Workflow Service.
+SageMaker resources must enable model invocation logging and send to S3
+ALl RDS Parameter groups must be properlyzhardened against Cyber standards for all database engines.
+"Only approved Capital One base images can be used to provision instances in Production and Non-Production, excluding the Fleet Management Team."
+"Only approved Capital One base images can be used to provision instances in Production and Non-Production, excluding the Fleet Management Team."
+""Write" actions for only services designated as "Approved" or "'Restricted"" in the Services Catalog can be used for Roles in Production and Non-Production accounts, excluding Sandbox and ReadOnly API Actions."
+Capital One Role policies and trust should only have valid Capital One ID's and references.
+Prevent use of wildcards in API Action Policies
+WorkSpaces images cannot be shared across accounts outside the COF organization.
+"Block AWS EC2, Lambda, and Glue machine roles from being used outside of Capital One's Network."
+"Block AWS EC2, Lambda, and Glue machine roles from being used outside of Capital One's Network." 
+Ensure AWS Machine Roles are deployed with a shield policy
+Backup vaults must be defined in all accounts and regions for all Data Durability in-scope resource types.
+All ECS task definitions must pull images from Capital One AWS ECR or Capital One implementation of Artifactory
+"Amazon FSx file systems must be created with a ""FileSystemType"" = WINDOWS or ""FileSystemType"™ = LUSTRE"
+All ECS services and tasks must use Fargate platform version 1.4 or newer.
+All ECS services and tasks must use Fargate platform version 1.4 or newer.
+Ensure AWS Human Roles are deployed with a shield policy.
+Ensure AWS Human Roles are deployed with a shield policy:
+CodeDeploy applications must follow only approved Capital One configurations.
+CodeDeploy applications must follow only approved Capital One configurations.
+CodeDeploy applications must follow only approved Capital One configurations.
+SageMaker Hyperpod persist cluster resources must be restricted to VPC scope only.
+SageMaker Studio Domain must use COF manage KMS CMK
+AWS compute optimizer export recommendations functionality is restricted to certain pre-selected IAM roles only   
+Knowledge base for Amazon Bedrock must only be created with an Amazon managed vector store 
+"Listed SageMaker Jobs need to run in VPCs which will enforce the COF S3 bucket restriction implicitly via VPC Endpoints. [SageMaker training jobs, SageMaker transform jobs, SageMaker Auto ML jobs, SageMaker Compilation jobs, SageMaker Data Quality jobs, SageMaker Hyper Parameter, SageMaker Model Bias jobs, SageMaker Model Explainability jobs, SageMaker Model Quality jobs, SageMaker Processing jobs]"
+All Models must pull an image from Capital One ECR or Artifactory repositories.
+"All Workspaces Web (Secure Browser) instances must have a browser policy that does not allow video capture, audio capture, external chrome extensions, and must have an idle disconnect timeout of 15 minutes."
+Amazon MQ broker must not use single-instance deployment mode
+All EC2 instances must have a HttpPutResponseHopLimit set to 2.
+"All Workspaces Web (Secure Browser) portals must not use any copy, paste, printer, and file upload or download capabilities"
+AWS Config must be enabled in approved Capital One regions.
+All VPCs must have VPC Flow Logs enabled.
+"DMS Replication instances must have the "auto minor version upgrade" option selected."
+A backend resource for CloudFront must be valid and exist within Capital One environment.
+All Workspaces must run on private subnets.
+WorkSpaces must be launched with an AlwaysOn mode.
+All MSSQL RDS resources must be joined to the AWS managed Active Directory•
+All ElastiCache Redis clusters must use Redis version 6.2.0 (enhanced) or later.
+All ElastiCache Redis clusters must use Redis version 6.2.0 (enhanced) or later.
+All MQ message brokers must be created in a Capital One VPC.
+All S3 bucket policies must enable access to Capital One horizontal compliance tools.
+All S3 buckets must have S3 Inventory feature enabled 
+All S3 Buckets must have a bucket policy attached to the bucket.
+ALl RDS resources must only run approved database engines.
+All RDS resources must only run approved database engines.
+AppSync APIs must be Private
+"Secrets Manager communication must be in VPC private Ehannels via VPC Endpoint, excluding AWS managed secrets"
+All Redshift clusters must enable Enhanced VPC Routing.
+All Glue jobs must run within a Capital One VPC
+All Glue jobs must disable service proxy.
+All Glue development endpoints must be created in a VPC and in a private subnet.
+ALL EC2 Auto Scaling Group launch configurations must specify that instances are started with private IPs.
+ALL EC2 instances using COF accounts must use IMDS Version 2
+ALL EC2 instances using COF accounts must use IMDS Version 2
+All Glue development endpoints are restricted from being created in production accounts.
+AWS API Gateway APIs must be Private
+"All ECS tasks and services, not in a Restricted Perimeter account, must be configured to run within a Private subnet of Capital One VPC"
+All ElastiCache clusters in PCI must use the Redis engine.
+A machine policy path must match the corresponding path on the machine role.
+Restricted Perimeter customer security groups must only use approved rules.
+"AWS API Gateway, Integration Type must Not be be ""HTTP'" or """Private"""
+EBS default encryption must be enabled for all regions with Capital One accounts.
+All Lambda functions must run supported runtimes.
+"Redshift cluster must not be configured with default admin username, default database name, or default port settings"
+ECS services must use the approved version of both required and optional security groups
+ECS services must use the approved version of both required and optional security groups
+All Certificate Manager expired certificates must be deleted.
+All Certificate Manager expired certificates must be deleted.
+All ElastiCache clusters must use the latest approved version upgrades enabled.
+GuardDuty must be enabled in all Capital One approved regions.
+All Cloudtrail logs must be delivered to a central location
+EC2 instances must use the approved version of both required and optional security groups.
+EC2 instances must use the approved version of both required and optional security groups.
+Lambda instances with an attached security group must use the approved version.
+RDS instances and clusters must use approved Enterprise Database Security Groups.
+RDS instances and clusters must use approved Enterprise Database Security Groups.
+Machine Role BA/ASV or BOBA tag values must be in the path for corresponding roles.
+All S3 buckets and objects must only be accessible from Capital One resources.
+All RDS resources must not be publicly accessible
+ALl RedShift clusters must not be publicly accessible.
+All EC2 instances must not be publicly accessible except proxy instances.
+Limit the session duration of an IAM role to 1 hour.
+"Upon submission of a request for new and/or changes to existing high-risk roles, the request is automatically rejected by Avenue to provision and/or perform changes to the role.
+All RDS resources must be in private subnets.
+ALL RDS resources must be in private subnets.
+ALl MemoryDB for Redis resources must be in private subnets.
+All CloudFront distributions with S3 origin must have Origin Access Control (OAC) enabled.
+Kinesis Data Streams resources must be tagged with a valid ASV/BA and OwnerContact.
+Kinesis Firehose resources must be tagged with a valid ASV/BA and OwnerContact.
+MSK resources must be tagged with a valid ASV/BA and OwnerContact.
+Systems Manager resources must be tagged with a valid ASV/BA and OwnerContact.
+CloudHSM resources must be tagged with a valid ASV/BA and OwnerContact.
+CloudFormation resources must be tagged with a valid ASV/BA and OwnerContact.
+FSx resources must be tagged with a valid ASV/BA and OwnerContact.
+Cloud Directory resources must be tagged with a valid ASV/BA and OwnerContact.
+NLB resources must be tagged with a valid ASV/BA and OwnerContact.
+Step Functions resources must be tagged with a valid ASV/BA and OwnerContact.
+Step Functions resources must be tagged with a valid ASV/BA and OwnerContact.
+All network Manager resources must be tagged with a valid ASV/BA and OwnerContact.
+All network Manager resources must be tagged with a valid ASV/BA and OwnerContact.
+Only approved ASV/BAs can own Stackable Security Groups.
+AppSync APIs must be tagged with a valid ASV/BA and Ownercontact.
+"Ensure AWS Machine Roles that are provisioned are tagged with a valid ASV/BA or BOBA, and OwnerContact."
+"Secrets Manager resources must be tagged with a valid ASV/BA and OwnerContact, excluding AWS managed secrets."
+CodeDeploy resources must be tagged with a valid ASV/BA and OwnerContact.
+CodeDeploy resources must be tagged with a valid ASV/BA and OwnerContact.
+Network Firewall resources must be tagged with a valid ASV/BA and OwnerContact.
+Timestream resources must be tagged with a valid ASV/BA and OwnerContact.
+Timestream resources must be tagged with a valid ASV/BA and OwnerContact..
+Fault Injection Simulator resources must be tagged with OwnerContact and BA/ASV.
+Fault Injection Simulator resources must be tagged with OwnerContact and BA/ASV.
+Elastic IP (EIP) address must only be attached to approved Internet Gatways (IGW)
+MemoryDB for Redis resources must be tagged with a valid ASV/BA and OwnerContact.
+MemoryDB for Redis resources must be tagged with a valid ASV/BA and OwnerContact.
+VPC Traffic Mirroring resources must be tagged with a valid ASV/BA and OwnerContact.
+VPC Traffic Mirroring resources must be tagged with a valid ASV/BA and OwnerContact.
+ALB resources must be tagged with a valid ASV/BA and OwnerContact.
+AWS API Gateway resources must be tagged with a valid ASV/BA and OwnerContact.
+AWS API Gateway resources must be tagged with a valid ASV/BA and OwnerContact.
+CloudFront resources must be tagged with a valid ASV/BA and OwnerContact.
+DynamoDB DAX resources must be tagged with a valid ASV/BA and OwnerContact.
+SES must be tagged with a valid ASV/BA and OwnerContact
+with a valid ASV/BA and OwnerContact be tagged with a valid ASV/BA and OwnerContact.
+DMS resources must be tagged with a valid ASV/BA and OwnerContact.
+DMS resources must be tagged with a valid ASV/BA and OwnerContact.
+DynamoDB resources must be tagged with a valid ASV/BA and OwnerContact.
+EBS resources must be tagged with a valid ASV/BA and OwnerContact.
+EBS resources must be tagged with a valid ASV/BA and OwnerContact.
+EC2 resources must be tagged with a valid ASV/BA and OwnerContact.
+EFS resources must be tagged with a valid ASV/BA and Ownercontact.
+Elasticache resources must be tagged with a valid ASV/BA and OwnerContact.
+ElastiCache resources must be tagged with a valid ASV/BA and OwnerContact.
+ElastiCache resources must be tagged with a valid ASV/BA and OwnerContact.
+OpenSearch resources must be tagged with a valid ASV/BA and OwnerContact.
+ELB resources must be tagged with a valid ASV/BA and OwnerContact.
+EMR resources must be tagged with a valid ASV/BA and OwnerContact.
+"Amazon Bedrock resources must be tagged with a valid ASV or BA, and OwnerContact"
+"Amazon Bedrock resources must be tagged with a valid ASV or BA, and OwnerContact"
+"Amazon Bedrock resources must be tagged with a valid ASV or BA, and OwnerContact"
+All OpenSearch Serverless resources must be tagged with a valid ASV/BA and OwnerContact.
+Lambda resources must be tagged with a valid ASV/BA and OwnerContact.
+MQ resources must be tagged with a valid ASV/BA and OwnerContact.
+RDS resources must be tagged with a valid ASV/BA and OwnerContact.
+AWS Global Accelerator resources must be tagged with a valid ASV/BA and OwnerContact.
+ECR resources must be tagged with a valid ASV/BA and OwnerContact.
+Redshift resources must be tagged with a valid ASV/BA and OwnerContact.
+Redshift resources must be tagged with a valid ASV/BA and OwnerContact.
+Redshift resources must be tagged with a valid ASV/BA and OwnerContact.
+"Amazon OpenSearch Ingestion resources must be tagged with a valid ASV or BA, and OwnerContact
+S3 buckets must be tagged with a valid ASV/BA and OwnerContact
+S3 buckets must be tagged with a valid ASV/BA and OwnerContact
+WorkSpaces Web resources must be tagged with a valid ASV/BA and OwnerContact
+WAF resources must be tagged with a valid ASV/BA and OwnerContact
+SageMaker resources including Hyperpod Persistent Cluster resources must be tagged with a valid ASV/BA and OwnerContact
+Athena resources must be taggedvwith a valid ASV/BA and OwnerContact
+Security Groups resources must be tagged with a valid ASV/BA and OwnerContact.
+All Service Catalog Products must be tagged with a valid ASV/BA and owner contact
+SQS resources must be tagged with a valid ASV/BA and OwnerContact.
+EC2 Auto Scaling resources must be tagged with a valid ASV/BA and OwnerContact.
+AWS Batch resources must be tagged with a valid ASV/BA and OwnerContact.
+AWS Batch resources must be tagged with a valid ASV/BA and OwnerContact.
+Backup resources must be tagged with a valid ASV/BA and OwnerContact.
+Certificate Manager resources must be tagged with a valid ASV/BA and OwnerContact.
+"All CloudWatch resources must be tagged with a valid ASV or BA, and an OwnerContact in proper format (EID, Capital One email address, or SNS topic ARN) Inscope Resources: - CloudWatch Alarm- CloudWatch Contributor
+Insights Rule"
+AlL Cloudwatch Logs except AWS Service created must be tagged with a valid ASV/BA and OwnerContact Data Pipeline refources must be tagged with a valid ASV/BA and OwnerContact.
+Direct Connect resources must be tagged with a valid ASV/BA and OwnerContact.
+Directory Service resources must be tagged with a valid ASV/BA and OwnerContact.
+"ECS resources must be tagged with a valid ASV or BA, and OwnerContact."
+EKS resources must be tagged with a valid ASV/BA and OwnerContact.
+EventBridge resources must be tagged with a valid ASV/BA and OwnerContact.
+Glue resources must be tagged with a valid ASV/BA and OwnerContact.
+KMS resources must be tagged with a valid ASV/BA and OwnerContact.
+Lex resources must be tagged with a valid ASV/BA and OwnerContact.
+Route 53 resources must be tagged with a valid ASV/BA and OwnerContact.
+Required GCP Audit logs (admin and access) and required GCP platform logs must be delivered to appropriate storage buckets and retained for 13 months 
+VPC Firewall Rules will be configured based on the documented patterns by the Shared Tech Architecture
+VPC resources must be tagged with a valid ASV/BA and OwnerContact:
+WorkSpaces resources must be tagged with a valid ASV/BA and OwnerContact.
+Managed Service for Apache Flink (Kinesis Data Analytics) resources must be tagged with a valid ASV/BA and OwnerContact.
+Certificate Manager wildcard certificates must not be used for external public facing sites.
+All Workspaces Web must have logging enabled.
+All FSx resources must be backed up and satisfy the retention period as defined in the Information Security Standard (2701.1.001)
+EFS filesystems must have at minimum backups taken daily meeting enterprise retention requirements.
+Redshift clusters must have at minimum backups taken daily and meet enterprise retention requirements.
+DynamoDB tables must have at minimum backups taken daily meeting enterprise retention requirements.
+RDS databases must have at minimum backups taken daily meeting enterprise retention requirements.
+RDS databases muft have at minimum backups taken daily meeting enterprise retention requirements.
+All S3 Buckets lifecycle policies that manage previous versions must comply with the timeframe required in the Information Security Standard
+All CloudHSM clusters must have multi-AZ configurations for high availability.
+All Timestream tables must be backed up by AWS Backup Service to ensure Capital One user separation of duties.
+CloudWatch Logs must be backed up and satisfy the retention period as defined in the Information Security Standard (2701.1.001)
+ALl MemoryDB clusters must have at minimum backups taken daily and meet enterprise retention requirements.
+All Capital One managed backup plans must have a minimum retention period as per Information security standards.
+All S3 buckets in production accounts that are non-DA must have cross region replication enabled
+All S3 buckets must have versioning enabled
+Timestream tables must have at minimum backups taken daily meeting enterprise information backup requirements.
+All MQ brokers must use LDAP for authentication and authorization.
+Multi-Factor Authentication (MFA) must be enabled for privileged access to AWS accounts.
+AWS EC2 managed Secure Shell (SSH) keypairs are prohibited from being used on COF managed AWS accounts.
+Excludes NCC lab roles (NCC Engineer and NCC Admin) per Network Security Standard 2700.1.014.
+AWS EC2 managed Secure Shell (SSH) keypairs are prohibited from being used on COF managed AWS accounts.
+Excludes NCC lab roles (NCC Engineer and NCC Admin) per Network Security Standard 2700.1.014.
+ECS tasks and task definitions must not store AWS tokens.
+ECS tasks and task definitions must not store AWS tokens.
+ALl ECS tasks that use the awspc network mode must not be able to access credential information via task role.
+All ElastiCache Redis clusters must require authentication.
+SES resources must enable DKIM signatures to authenticate outbound email
+"AWS MemoryDB for Redis Only users with ""IAM authentication"" authentication mode may be granted access to
+MemoryDB Clusters"
+"Root access (i.e., Breakglass accounts) must be restricted to a very limited set of users and enforce Multi-Factor Authentication (MFA)."
+AWS root accounts must not have access keys defined.
+All passwords for connections stored in Glue must be protected
+All AWS Config service roles must be created with restricted permissions.
+AWS CloudFormation templates must not store Aws tokens.
+All non-breakglass IAM users must have their password disabled.
+All non-breakglass IAM users must have their password disabled.
+All passwords for connections must not be stored locally within Glue
+"Amazon Neptune must turn on ""IAM DB authentication'"
+ALL AWS KMS customer managed customer Master Keys must have yearly automated rotation enabled.
+"Secrets values for eligible Secret types must be rotated every 90 days, excluding AWS managed secrets."
+All Workspaces torage volumes must be encrypted.
+"Primary Secrets must be used within the last 6 months, excluding AWS managed secrets and replicas."
+Private Certificate Authority Root CA and Intermediate Private CAs issuance are restricted to a limited set of roles owned by Core Crypto via SCP(s).
+All Workspaces storage volumes in PCI environments must be encrypted with a customer managed CMK
+Amazon High Volume Outbound Communications data in Pel environments must be encrypted with a customer Managed Key (CMK).
+AWS AppSync API caching feature must be disabled in PCI / CDE Environments
+Systematic Requests for AppSync endpoint must be authenticated using AWS_LAMBDA OR AWS_IAM
+All EBS volumes must be encrypted at rest.
+All EBS volumes must be encrypted at rest.
+All EBS volumes must be encrypted at rest.
+All RDS resources must be encrypted at rest.
+AlL RDS resources must be encrypted at rest.
+All Comprehend resources must be encrypted at rest.
+All RedShift clusters must be encrypted at rest.
+All SQS queues must have server side encryption enabled.
+All Kinesis Data Streams must be encrypted at rest.
+All EFS resources must be encrypted at rest.
+All Sagemaker notebook instances must be encrypted at rest.
+All DMS replication instances must be encrypted at rest.
+All DynamoDB DAX resources must be encrypted at rest.
+All DynamoDB tables in PCI environments must be encrypted with a customer managed CMK.
+All standard AWS Backup vaults managed by Capital One in all environments must be encrypted with a customer managed CMK.
+All ActiveMQ message brokers in PCI environments must be encrypted at rest using a Customer-Managed CM.
+All ElastiCache Redis clusters must be encrypted at rest.
+All ElastiCache Redis clusters must be encrypted at rest.
+"AWS API Gateway if caching is enabled, the cached data must be encrypted at rest."
+All ElastiCache Redis clusters in PCI environments must be encrypted at rest using a customer-managed CMK.
+All ElastiCache Redis clusters in PCI environments must be encrypted at rest using a customer-managed CMK.
+All RDS resources in a PCI environment must be encrypted with a customer managed CMK.
+All RDS resources in a PCI environment must be encrypted with a customer managed CMK.
+All EFS resources in in PCI environments must be encrypted with a customer managed CMK.
+All Lambda environment variables in PCI environments must be encrypted at rest with Customer Managed CMK.
+All EBS volumes in PCI environments must be encrypted using a customer managed CMK.
+Redshift clusters in PCI environments must be encrypted via a customer managed CMK.
+All data from Glue jobs must be encrypted at rest.
+All data from Glue crawlers must be encrypted at rest.
+All data from Glue development endpoints must be encrypted at rest.
+All Kubernetes secrets stored in Amazon EKS in PCI environments must be encrypted using a customer managed CMK.
+All SNS topics must be encrypted in transit.
+All Glue development endpoints must not live longer than 14 days.
+Security Hub must be enabled for all accounts and regions that Capital One operates in.
+All Glue security configuration resources must be configured to ensure encryption at rest.
+All Kinesis Data Streams in PCI environments must encrypt data at rest with a customer managed CMK.
+All Kinesis Firehose streams must be encrypted at rest.
+All Kinesis Firehose streams in PCI environments must be encrypted with a customer managed CMK.
+All Kinesis Firehose streams delivering to S3 destinations must require encryption of the delivered data.
+All OpenSearch Serverless collections in PCI environments must be encrypted with a customer managed key.
+ALL OpenSearch domains in PCI accounts must be encrypted using a customer managed CMK.
+All Step Functions resources in PCI environments must be encrypted with a CMK.
+All Step Functions resources in PCI environments must be encrypted with a CMK.
+All OpenSearch Ingestion pipelines in PCI environments must use a CMK to encrypt buffer data.
+ALl OpenSearch Ingestion pipelines must enable persistent buffering.
+AWS MSK data must be encrypted at rest.
+Ali Amazon FSx resources must be encrypted with customer managed MKs for all PCI environments.
+ALl SQS queues in PCI environments must encrypt data with a customer managed CMK.
+All default VPCs must contain no resources.
+VPCs in the same account have to belong to the same PCI category and environment.
+All AWS Accounts that have public internet access through their Virtual Private Cloud (VPC) must have Shield Advanced enabled.
+All public facing resources must be protected by Shield Advanced
+AWS Global Accelerator must have Shield Advanced enabled.
+Ingress 0.0.0.0/0 or smaller is only allowed on SG in public-facing subnet.
+Security Group Public Egress Rules
+Security Group Customer Ingress Rules.
+Security Group Customer Egress Rules
+Security Group Enterprise Ingress Rules.
+Security Group Enterprise Egress Rules.
+All EC2 resource ASV or BA tags must match the ASV or BA tag of the attached Security Group All Lambda resource ASV or BA tags must match the ASV or BA tag of the attached Security Group.
+All ALB resource ASV or BA tags must match the ASV or BA tag of the attached Security Group
+ALL ELB resource ASV or BA tags must match the ASV or BA tag of the attached Security Group
+ALL RDS resource ASV or BA tags must match the ASV or BA tag of the attached Security Group
+ALL RDS resource ASV or BA tags must match the ASV or BA tag of the attached Security Group All EC2 resource subnets must match the Network Location tag of the attached Security Group.
+WorkSpaces must use approved Capital One AWS Security Groups.
+All Lambda resource subnets must match the NetworkLocation tag of the attached Security Group.
+All ALB resource subnets must match the NetworkLocation tag of the attached Security Group.
+All ELB resource subnets must match the NetworkLocation tag of the attached Security Group.
+All RDS resource subnets must match the NetworkLocation tag of the attached Security Group.
+All RDS resource subnets must match the NetworkLocation tag of the attached Security Group.
+All EFS Mount Target subnets must match the NetworkLocation tag of the attached Security Group.
+All EMR resource subnets must match the NetworkLocation tag of the attached Security Group.
+Default Security Groups must deny all inbound and outbound traffic.
+VPC Traffic Mirroring targets must belong to COF Network Automation and Service Assurance team AWS accounts only.
+VPC Traffic Monitoring sessions must only forward network header information for PCI environments.
+All EKS resource ASV or BA tags must match the ASV or BA tag of the attached Security Group.
+ALL ECS resource ASV or BA tags must match the ASV or BA tag of the attached Security Group.
+ALl ECS resource ASV or BA tags must match the ASV or BA tag of the attached Security Group.
+SageMaker HyperPod resource ASV or BA tags must match the ASV or BA tag of the attached Security Group
+Network Location of Security Groups attached to Restricted Perimeter EC2s must be 'DMZ' or 'dmz'
+Restricted Perimeter accounts must only contain approved security groups
+CLoudwatch Logs Resource-Based policy must not grant access to non Capital One principals.
+Kinesis Data Streams Resource-Based policy must not grant access to non Capital One principals.
+OpenSearch Resource-Based policy must not grant access to non Capital One principals.
+AWS SageMaker Domain must be configured in VPC-only mode
+"Amazon ELB must not set load balancer attribute ""Desync Mitigation Mode"' to Monitor Mode."
+"Amazon ELB must not permit use of ""Classic Load Balancers"" feature."
+All ELB resources with HITS enabled must be configured to only accept secure protocols and ciphers as identified in the Capital One Information Security Standard.
+All CloudFront distributions origin must be configured to only accept secure protocol.
+All data sent to DMS endpoints must be encrypted in transit.
+All CloudFront distributions viewers must be configured to only accept secure protocol.
+ALBs with HTTPS enabled must be configured to only accept secure protocols and ciphers as identified in the Capital One Information Security Standard
+All S3 buckets must have data encrypted in transit.
+All EFS resources are encrypted in transit.
+All SQS queues must encrypt data in transit.
+All ELB HTTP/HTTPS listeners in public subnets must use HTTPS protocol.
+All SNS topics in PCI environments must use Customer Managed CMK.
+All RDS Proxy endpoints must enforce TLS.
+All DynamoDB Accelerator (DAX) resources must encrypt data in-transit.
+Redirect HTTP to HTTPS via CloudFront on the edge for the web distribution viewer protocol policy-All MemoryDB clusters must enable encryption of data in-transit.
+All CloudFront distributions are not using the default CloudFront URL and Certificate.
+All CloudFront distributions must not use Signed URLs and Cookies.
+All ELB TCP/SSL listeners in public subnets must use SSL protocol.
+"For CloudFront distribution with non-S origin, restrict access to the intended CloudFront distribution by enabling Custom Header."
+All Secret Manager data must be encrypted in transit.
+SES communications must set TLS Policy to Require All AWS Direct Connect links must have MACSec enabled.
+All ElastiCache Redis clusters must use encryption in transit.
+All ElastiCache Redis clusters must use encryption in transit.
+ALl NLB resources in public subnet must use TLS connections only.
+All NB resources must use TLS 1.2 and approved ciphers only.
+ALL ALB resources in a public subnet must only use HTTPS and must have TLS 1.2 and approved ciphers.
+All MSK clusters must encrypt data in-transit.
+LDAP and TLS v<1.2 must be disabled for AD Connector and Managed Microsoft AD ALL Redshift cluster traffic must be encrypted in transit
+Kinesis Video Streams data retention must not be blank and set to 24 hours or less.

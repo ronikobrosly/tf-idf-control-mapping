@@ -1,0 +1,89 @@
+You are a brilliant cybersecurity expert with an expert-level of understanding GenAI pipelines. We work at a large financial institution that is very risk aversion and wants to carefully prevent cybersecurity incidents. 
+
+I need you to build an application to map unique cloud services (e.g. AWS Sagemaker, AWS Simple Email Service, AWS SQS etc) to what I refer to as "controls" or "control policies". There are around 500 unique control policies, and they are listed in a CSV file in the `data` folder. Here are a few examples of control policies:
+
+1) "All SageMaker notebooks must not have direct internet access"
+2) "AWS Simple Email Serivce must enable content spam malware scanning"
+3) "AWS SQS queues must not be pubicly accessible"
+4) "Workspaces directories may only be configured with Capital One Active Directory via AD Connectors."
+5) "All ALBs must have access logging enabled"
+
+A given cloud service can have one or more controls mapped to it. In some cases, some cloud services have up to 5 controls mapped to it. 
+
+It is extrodinary time consuming for a human to look at a new cloud service the company wants to onboard, and map it to controls. So, I'm hoping to create a pipeline for partial automating this. Fully automating this process would be dangarous, but if our pipeline can make recommendations for a human to quick validate, it can greatly speed up the mapping process and save the company time and money. 
+
+I want the application's output to be a json object, giving the name of the cloud service, listing the associated controls, providing a confidence score for each estimated control (low, med, or high), and a one sentence justification for why that control is relevant and was picked.
+
+
+Let me share the inputs you would use to create the control mappings.
+
+1) First, there is a CSV file in the `data` folder with all 500 controls, describing the controls and their purpose. 
+
+2) The cloud service provider's developer's documentation PDF. This is typically around 100s of pages, but there is almost ways a chapter just on security, which is most relevant to us. Here is an exerpt of AWS Timestream's security chapter:
+
+The user user provide the start and end page of the security chapter and you can clip the PDF to just the relevant security section. 
+
+
+3) Finally, there is short paragraph that analysts write before off the work to other analysts to do the control mapping. Here is an example of such a paragraph: "A threat agent misconfigured inbound connection settings, accept lists, and/or VPC firewall rules, allowing them to bypass security controls and gain unauthorized access to sensitive resources and APIs, leading to the theft or disclosure of highly confidential data"
+
+
+-----
+
+So now you know the task, the inputs, and expected the outputs. There is a bit more context I need to give you. 
+
+* At this financial institution, we only have access to the LLama 3.1 70B Instruct LLM. Our context window is limited to 8000 tokens. 
+
+Here is the python code to make an API call to Llama 3.1:
+
+```
+import os
+from openai import OpenAI
+
+base_url = "https://api.novita.ai/v3/openai"
+api_key = os.environ.get('llama_api')
+model = "meta-llama/llama-3.1-70b-instruct"
+
+client = OpenAI(
+    base_url=base_url,
+    api_key=api_key,
+)
+
+stream = True # or False
+max_tokens = 1000
+
+response_format = { "type": "text" }
+
+chat_completion_res = client.chat.completions.create(
+    model=model,
+    messages=[
+        
+        {
+            "role": "user",
+            "content": "Hi there! Tell me how you're doing.",
+        }
+    ],
+    stream=stream,
+    extra_body={
+    }
+  )
+
+if stream:
+    for chunk in chat_completion_res:
+        print(chunk.choices[0].delta.content or "", end="")
+else:
+    print(chat_completion_res.choices[0].message.content)
+```
+
+
+* Given the constraints of our LLM sandbox, we will not be able to use a vector database. Please employ BM25 retrieval for rag.  
+* Finally, I would like the initiation of this app to look like this:
+
+```
+python run_control_mapping.py \
+  --controls data/controls.csv \
+  --doc "AWS Secrets Manager" \
+  --security_start_page 284 \
+  --security_end_page 355 \
+  --analyst_note "A threat agent misconfigured inbound connection settings, accept lists, and/or VPC firewall rules, allowing them to bypass security controls and gain unauthorized access to sensitive resources and APIs, leading to the theft or disclosure of highly confidential data"
+  --output output/results.json
+```

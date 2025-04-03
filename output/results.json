@@ -1,0 +1,23 @@
+{
+  "service_name": "comprehend",
+  "controls": [
+    {
+      "control_id": "315",
+      "control_text": "All Comprehend resources must be encrypted at rest.",
+      "confidence": "HIGH",
+      "justification": "This control directly references Comprehend and encrypting its resources at rest."
+    },
+    {
+      "control_id": "69",
+      "control_text": "Amazon DynamoDB Resource-Based policy must not grant access to non Capital One principals.",
+      "confidence": "LOW",
+      "justification": "Comprehend does not use DynamoDB, but the Document Classification Job involves resource-based policies, making this control potentially relevant by analogy."
+    },
+    {
+      "control_id": "26",
+      "control_text": "All Key Management Service KMS keys must not be publicly accessible",
+      "confidence": "MEDIUM",
+      "justification": "Comprehend likely uses KMS for encryption, and controlling public access to KMS keys is a relevant security concern."
+    }
+  ]
+}
